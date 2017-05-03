@@ -1,0 +1,6 @@
+{
+    "require": {
+        "spatie/schema-org": "^1.2",
+        "guzzlehttp/guzzle": "^6.2"
+    }
+}

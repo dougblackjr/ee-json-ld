@@ -11,7 +11,7 @@
 		</fieldset>
 		<h1><?=lang('json_ld_list_title')?></h1>
 
-		<?=ee('CP/Alert')->get('pages-form')?>
+		<?=ee('CP/Alert')->get('json-ld-form')?>
 
 		<?php $this->embed('ee:_shared/table', $table); ?>
 		<?=$pagination?>

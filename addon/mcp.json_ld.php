@@ -50,6 +50,12 @@ class Json_ld_mcp {
 		/*
 		INDEX: Gets list of JSON-LD templates
 		 */
+		
+		// Delete if something is there
+		if ( ! empty($_POST))
+		{
+			$this->delete();
+		}
 
 		// Get base info
 		$base_url = ee('CP/URL')->make('addons/settings/json_ld');
@@ -82,7 +88,10 @@ class Json_ld_mcp {
 			foreach($entries as $entry) {
 				$checkbox = array(
 					'name' => 'selection[]',
-					'value' => $entry['id']
+					'value' => $entry['id'],
+					'data'	=> array(
+						'confirm' => 'Template: <b>' . htmlentities($entry['template_name'], ENT_QUOTES, 'UTF-8') . '</b>'
+					)
 				);
 
 				$edit_url = ee('CP/URL')->make('addons/settings/json_ld/edit_template&id=' . $entry['id']);
@@ -392,6 +401,32 @@ class Json_ld_mcp {
 		}
 
 		exit();
+	}
+
+	private function delete()
+	{
+	    
+		// DELETE template
+
+		foreach ($_POST['selection'] as $id)
+		{
+			$ids['id'] = $id;
+			$template = ee()->jsonld->template(NULL,$id);
+			$templateNames[] = $template['template_name'];
+		}
+
+        // Delete Pages & give us the number deleted.
+        $didItDelete = ee()->db->delete('exp_json_ld_templates', $ids);
+
+		if ($didItDelete !== FALSE)
+		{
+			ee('CP/Alert')->makeInline('json-ld-form')
+				->asSuccess()
+				->withTitle('success')
+				->addToBody('Templates deleted:')
+				->addToBody($templateNames)
+				->now();
+		}
 	}
 
 }

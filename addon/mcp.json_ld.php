@@ -138,7 +138,7 @@ class Json_ld_mcp {
 		ee()->load->library('table');
 		ee()->cp->add_to_head('<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">');
 		ee()->cp->add_to_head('<link rel="stylesheet" href="'.$this->theme_url.'css/app.css" type="text/css" media="screen">');
-
+		ee()->cp->add_to_foot('<script type="text/javascript">var $token = 1;</script>');
 		ee()->cp->add_to_foot('<script src="'.$this->theme_url.'js/app.js" type="text/javascript" charset="utf-8"></script>');
 
 		$this->_data['action_url'] = ee('CP/URL')->make('addons/settings/json_ld/savetemplate');
@@ -171,6 +171,7 @@ class Json_ld_mcp {
 		ee()->cp->add_to_head('<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">');
 		ee()->cp->add_to_head('<link rel="stylesheet" href="'.$this->theme_url.'css/app.css" type="text/css" media="screen">');
 
+		ee()->cp->add_to_foot('<script type="text/javascript">var $token = 1;</script>');
 		ee()->cp->add_to_foot('<script src="'.$this->theme_url.'js/app.js" type="text/javascript" charset="utf-8"></script>');
 		// Load edit form js
 		ee()->cp->add_to_foot('<script src="'.$this->theme_url.'js/load_edit_form.js" type="text/javascript" charset="utf-8"></script>');

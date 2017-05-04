@@ -1,5 +1,5 @@
 $(document).ready(function($) {
-	
+
 	// First, let's populate the PRE and get the template data and scope these
 	// Get template id
 	var tempid = $('#json-ld-template-info').val();
@@ -125,6 +125,44 @@ $(document).ready(function($) {
 						$($el).find('.select-'+$key+'-'+$nk+' option[value='+$nk+']').attr('selected', 'selected');
 						$($el).find('.input-'+$key+'-'+$nk).val($nv);
 
+						// Test for tokens in value
+						var tempToken = $nv;
+
+						// If value contains a token
+						if (tempToken.indexOf("##token") > -1 ) {
+
+							// Count how many tokens in string
+							var count = (tempToken.match(/##token/g) || []).length;
+
+							// For each
+							if (count > 0) {
+
+								for (var i = 1; i <= count; i++) {
+
+									// Get value
+									if (split) {
+
+										var split = split.split('##token', 2);
+										split = split[1].split('##',2);
+
+									} else {
+
+										var split = tempToken.split('##token', 2);
+										split = split[1].split('##',2);
+
+									}
+									
+									// If value is higher than token currently
+									if(split[0] >= $token) {
+
+										// Make token this value +1
+										$token = parseInt(split[0]) + 1;
+
+									}
+								}
+							}
+						}
+
 					},
 					error: function(xhr){
 
@@ -138,6 +176,43 @@ $(document).ready(function($) {
 
 		} else {
 			
+			// Test for tokens in value
+			var tempToken = $value;
+
+			// If value contains a token
+			if (tempToken.indexOf("##token") > -1 ) {
+
+				// Count how many tokens in string
+				var count = (tempToken.match(/##token/g) || []).length;
+
+				// For each
+				if (count > 0) {
+
+					for (var i = 1; i <= count; i++) {
+
+						// Get value
+						if (split) {
+
+							var split = split.split('##token', 2);
+							split = split[1].split('##',2);
+
+						} else {
+
+							var split = tempToken.split('##token', 2);
+							split = split[1].split('##',2);
+
+						}
+						
+						// If value is higher than token currently
+						if(split[0] >= $token) {
+
+							// Make token this value +1
+							$token = parseInt(split[0]) + 1;
+
+						}
+					}
+				}
+			}
 			$el.append('<tr><td><p class="title form-field-title">'+$key+'</p></td><td class="json-ld-form-td"><input class="is-medium json-ld-form-input" type="text" name="'+$key+'" value="'+$value+'"/></td><td><a class="btn add-token">Add Token</a>  <a class="btn" id="remove-row" onclick="this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode); return false;">Remove</a></td></tr>');
 
 		}
@@ -145,5 +220,6 @@ $(document).ready(function($) {
 	});
 
 	// Put the form on the page
+	console.log('token: '+$token);
 	// Be happy
 });

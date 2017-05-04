@@ -2,7 +2,6 @@
 (function() {
 
 	// Set Globals
-	$token = 1;
 
 	var type = '';
 

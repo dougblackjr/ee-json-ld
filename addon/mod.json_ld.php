@@ -43,36 +43,45 @@ class Json_ld
 		$test = ee()->TMPL->fetch_param('test', FALSE) ? TRUE : FALSE;
 
 		// Get EE tag params
-		$template_name = ee()->TMPL->fetch_param('template');
+		$template_name = ee()->TMPL->fetch_param('template') ? ee()->TMPL->fetch_param('template') : FALSE;
 
-		// Get template
-		$template = ee()->jsonld->template($template_name);
+		if($template_name) {
 
-		$template_data = $template['template_text'];
+			// Get template
+			$template = ee()->jsonld->template($template_name);
 
-		// Parse tokens in template
-		foreach ($this->_session_data as $setvar) {
-			//Get token id
-			$template = $setvar[0];
-			// If token is in template
-			if($template == $template_name) {
-				// String replace ie. ##token1## -> GERBILS
-				$token_name = $setvar[1];
-				$token_data = $setvar[2];
+			$template_data = $template['template_text'];
 
-				$template_data = str_replace('##'.$token_name.'##', trim($token_data), $template_data);
+			// Parse tokens in template
+			foreach ($this->_session_data as $setvar) {
+				//Get token id
+				$template = $setvar[0];
+				// If token is in template
+				if($template == $template_name) {
+					// String replace ie. ##token1## -> GERBILS
+					$token_name = $setvar[1];
+					$token_data = $setvar[2];
+
+					$template_data = str_replace('##'.$token_name.'##', trim($token_data), $template_data);
+				}
 			}
+
+			// Add script tags
+			if ($test) {
+				$code = $template_data;
+			} else {
+				$code = '<script type="application/ld+json">'.$template_data.'</script>';
+			}
+			
+			// Return it
+			return $code;
+
+		} else {
+
+			return null;
+
 		}
 
-		// Add script tags
-		if ($test) {
-			$code = $template_data;
-		} else {
-			$code = '<script type="application/ld+json">'.$template_data.'</script>';
-		}
-		
-		// Return it
-		return $code;
 	}
 
 	private function strip_html($data)

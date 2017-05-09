@@ -57,9 +57,9 @@
 					</div>
 					<div class="col-group">
 						<div class="col w-16">
-							<div class="get-jsonld">
-								<p class="title">Run Template</p>
-								<p><a class="btn" id="get-template-button">Let's Go!</a></p>
+							<div class="token-farm">
+								<p class="title">Available Tokens </p>
+								<div id="token-farm"></div>
 							</div>
 						</div>
 					</div>

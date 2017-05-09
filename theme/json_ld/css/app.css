@@ -94,7 +94,7 @@ body {
   padding: 20px;
 }
 
-.choose-type, .add-fields, .get-jsonld {
+.choose-type, .add-fields {
   margin-bottom: 3rem;
 }
 
@@ -126,7 +126,7 @@ a.nested-form {
   color: white !important;
 }
 
-.add-fields, .get-jsonld, .doc-link {
+.add-fields, .doc-link {
   display: none;
 }
 
@@ -378,4 +378,13 @@ a.file:not(.button) {
 
 #json-ld-show-template {
   min-height: 200px;
+}
+
+.token-drag {
+  background: white;
+  border: 1px white solid;
+  border-radius: 4px;
+  padding: 0.2rem;
+  color: #0d3d5a;
+  margin: 0.2rem;
 }

@@ -21,7 +21,7 @@ class Json_ld
 		// This gets the tokens that are set in the template
 		// Get EE template data
 		$template = ee()->TMPL->fetch_param('template');
-		$token = ee()->TMPL->fetch_param('name');
+		$token = ee()->TMPL->fetch_param('token');
 		$token_data = $this->strip_html(ee()->TMPL->tagdata);
 
 		// Sets this in session
@@ -39,48 +39,58 @@ class Json_ld
 	{
 
 		$this->_session_data = ee()->session->cache['jsonld'];
-		
+
 		$test = ee()->TMPL->fetch_param('test', FALSE) ? TRUE : FALSE;
 
 		// Get EE tag params
 		$template_name = ee()->TMPL->fetch_param('template') ? ee()->TMPL->fetch_param('template') : FALSE;
 
-		if($template_name) {
+		$templates = explode('|', $template_name);
 
-			// Get template
-			$template = ee()->jsonld->template($template_name);
+		$return_data = NULL;
 
-			$template_data = $template['template_text'];
+		foreach ($templates as $each_template) {
 
-			// Parse tokens in template
-			foreach ($this->_session_data as $setvar) {
-				//Get token id
-				$template = $setvar[0];
-				// If token is in template
-				if($template == $template_name) {
-					// String replace ie. ##token1## -> GERBILS
-					$token_name = $setvar[1];
-					$token_data = $setvar[2];
+			if($each_template) {
 
-					$template_data = str_replace('##'.$token_name.'##', trim($token_data), $template_data);
+				// Get template
+				$template = ee()->jsonld->template($each_template);
+
+				$template_data = $template['template_text'];
+
+				// Parse tokens in template
+				foreach ($this->_session_data as $setvar) {
+					//Get token id
+					$template = $setvar[0];
+					// If token is in template
+					if($template == $each_template) {
+						// String replace ie. ##token1## -> GERBILS
+						$token_name = $setvar[1];
+						$token_data = $setvar[2];
+
+						$template_data = str_replace('##token'.$token_name.'##', trim($token_data), $template_data);
+					}
 				}
-			}
 
-			// Add script tags
-			if ($test) {
-				$code = $template_data;
+				// Add script tags
+				if ($test) {
+					$code = $template_data;
+				} else {
+					$code = '<script type="application/ld+json">'.$template_data.'</script>';
+				}
+				
+				// Return it
+				$return_data .= $code;
+
 			} else {
-				$code = '<script type="application/ld+json">'.$template_data.'</script>';
+
+				$return_data .= null;
+
 			}
-			
-			// Return it
-			return $code;
-
-		} else {
-
-			return null;
 
 		}
+
+		return $return_data;
 
 	}
 

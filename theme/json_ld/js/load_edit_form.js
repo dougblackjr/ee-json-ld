@@ -74,7 +74,6 @@ $(document).ready(function($) {
 			});
 
 			$('.add-fields').show();
-			$('.get-jsonld').show();
 				
 		},
 		error: function(xhr){
@@ -115,7 +114,7 @@ $(document).ready(function($) {
 					success: function(rdata){
 				
 						// Append the select and input field
-						$($el).find('.key-'+$key).append('<div class="jsonld-nested-select-separator"><p><select class="jsonld-nested-select select-'+$key+'-'+$nk+'"></select></p><p><input name="'+$key+'-'+$nk+'" class="jsonld-nested-input input-'+$key+'-'+$nk+'" type="text"><i id="filtersubmit" class="fa fa-plus-circle" title="Add token"></i></p></div>');
+						$($el).find('.key-'+$key).append('<div class="jsonld-nested-select-separator"><p><select class="jsonld-nested-select select-'+$key+'-'+$nk+'"></select></p><p><input name="'+$key+'-'+$nk+'" class="jsonld-nested-input input-'+$key+'-'+$nk+'" type="text" ondrop="drop(event)" ondragover="allowDrop(event)" ><i id="filtersubmit" class="fa fa-plus-circle" title="Add token"></i></p></div>');
 
 						// Append options to select
 						$.map(rdata, function(e, f) {
@@ -159,8 +158,13 @@ $(document).ready(function($) {
 										$token = parseInt(split[0]) + 1;
 
 									}
+
+									$('#token-farm').append('<a class="token-drag fa fa-plus-circle" draggable="true" ondragstart="drag(event)">##token'+split[0]+'##</a>');
+
 								}
+
 							}
+
 						}
 
 					},
@@ -202,7 +206,9 @@ $(document).ready(function($) {
 							split = split[1].split('##',2);
 
 						}
-						
+
+						$('#token-farm').append('<a class="token-drag fa fa-plus-circle" draggable="true" ondragstart="drag(event)">##token'+split[0]+'##</a>');
+
 						// If value is higher than token currently
 						if(split[0] >= $token) {
 
@@ -213,7 +219,7 @@ $(document).ready(function($) {
 					}
 				}
 			}
-			$el.append('<tr><td><p class="title form-field-title">'+$key+'</p></td><td class="json-ld-form-td"><input class="is-medium json-ld-form-input" type="text" name="'+$key+'" value="'+$value+'"/></td><td><a class="btn add-token">Add Token</a>  <a class="btn" id="remove-row" onclick="this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode); return false;">Remove</a></td></tr>');
+			$el.append('<tr><td><p class="title form-field-title">'+$key+'</p></td><td class="json-ld-form-td"><input class="is-medium json-ld-form-input" type="text" ondrop="drop(event)" ondragover="allowDrop(event)" name="'+$key+'" value="'+$value+'"/></td><td><a class="btn add-token">Add Token</a>  <a class="btn" id="remove-row" onclick="this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode); return false;">Remove</a></td></tr>');
 
 		}
 

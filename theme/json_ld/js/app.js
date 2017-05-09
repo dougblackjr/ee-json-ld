@@ -2,7 +2,6 @@
 (function() {
 
 	// Set Globals
-
 	var type = '';
 
 	// WHEN TYPE CHANGE, BUILD THE FORM
@@ -81,11 +80,11 @@
 				// Populate the select box
 				if (rdata !== "\"no methods\"") {
 					
-					$("#json-table tbody").append('<tr><td><p class="title form-field-title">'+$selected+'</p></td><td class="json-ld-form-td"><input class="is-medium json-ld-form-input" type="text" name="'+$selected+'" /></td><td><a class="btn add-token">Add Token</a>  <a class="btn nest-type">Nest</a>  <a class="btn" id="remove-row" onclick="this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode); return false;">Remove</a></td></tr>');
+					$("#json-table tbody").append('<tr><td><p class="title form-field-title">'+$selected+'</p></td><td class="json-ld-form-td"><input class="is-medium json-ld-form-input" type="text" name="'+$selected+'" ondrop="drop(event)" ondragover="allowDrop(event)" /></td><td><a class="btn add-token">Add Token</a>  <a class="btn nest-type">Nest</a>  <a class="btn" id="remove-row" onclick="this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode); return false;">Remove</a></td></tr>');
 
 				} else {
 
-					$("#json-table tbody").append('<tr><td><p class="title form-field-title">'+$selected+'</p></td><td class="json-ld-form-td"><input class="is-medium json-ld-form-input" type="text" name="'+$selected+'" /></td><td><a class="btn add-token">Add Token</a>  <a class="btn" id="remove-row" onclick="this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode); return false;">Remove</a></td></tr>');
+					$("#json-table tbody").append('<tr><td><p class="title form-field-title">'+$selected+'</p></td><td class="json-ld-form-td"><input class="is-medium json-ld-form-input" type="text" name="'+$selected+'" ondrop="drop(event)" ondragover="allowDrop(event)" /></td><td><a class="btn add-token">Add Token</a>  <a class="btn" id="remove-row" onclick="this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode); return false;">Remove</a></td></tr>');
 
 				}
 				
@@ -104,6 +103,9 @@
 		$(this).closest('tr').find('.json-ld-form-input').val(function () {
 			return this.value + '##token'+$token+'##';
 		});
+
+		$('#token-farm').append('<a class="token-drag fa fa-plus-circle" draggable="true" ondragstart="drag(event)">##token'+$token+'##</a>');
+
 		$token++;
 
 	});
@@ -130,7 +132,7 @@
 				$(el).closest('tr').find('.json-ld-form-input').remove();
 
 				// Append the select and input field
-				$(el).closest('tr').find('.json-ld-form-td').append('<div class="jsonld-nested-select-separator"><p><select class="jsonld-nested-select"></select></p><p><input name ="" class="jsonld-nested-input" type="text"><i id="filtersubmit" class="fa fa-plus-circle" title="Add token"></i></p></div>');
+				$(el).closest('tr').find('.json-ld-form-td').append('<div class="jsonld-nested-select-separator"><p><select class="jsonld-nested-select"></select></p><p><input name ="" class="jsonld-nested-input" type="text" ondrop="drop(event)" ondragover="allowDrop(event)" /><i id="filtersubmit" class="fa fa-plus-circle" title="Add token"></i></p></div>');
 
 				// Append options to select
 				var results = $.map(rdata, function(e, f) {
@@ -159,7 +161,7 @@
 	});
 
 	// Run Template getter
-	$(document).on('click', '#get-template-button', function(event) {
+	$(document).on('keyup keypress blur change', '#json-ld-form-form, input', function(event) {
 
 		var formData = $('#json-ld-form-form').serializeArray();
 		
@@ -175,8 +177,6 @@
 			success: function(rdata){
 				
 				// If success, then send to form div below
-				console.log(rdata);
-    			
     			// Make it pretty
     			var pretty = JSON.stringify(rdata, undefined, 4);
 				

@@ -13,6 +13,7 @@ $lang = array(
 	'json_ld_nav_assign_new' => 'Assign New',
 	'json_ld_nav_documentation' => 'Documentation',
 	'json_ld_assign_new' => 'Create Template',
+	'json_ld_documentation' => 'Documentation',
 	
 	// Form labels
 	'json_ld_form_template_name' => 'Template Name',

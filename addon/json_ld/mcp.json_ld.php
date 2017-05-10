@@ -34,7 +34,7 @@ class Json_ld_mcp {
 		$nav_items = array(
 			lang('json_ld_nav_home')       => '/',
 			lang('json_ld_create_new')    => 'new_template',
-			lang('json_ld_nav_documentation') => 'https://stackoverflow.com'
+			lang('json_ld_nav_documentation') => 'documentation'
 		);
 		
 		$this->nav = Json_ld_helpers::getNav($nav_items);
@@ -192,6 +192,15 @@ class Json_ld_mcp {
 
 		// Send data to view
 		return ee('View')->make('json_ld:edit')->render($this->_data);
+
+	}
+
+	public function documentation()
+	{
+
+		$this->_data['imagePath'] = $this->theme_url."img/logo.png";
+
+		return ee('View')->make('json_ld:docs')->render($this->_data);
 
 	}
 

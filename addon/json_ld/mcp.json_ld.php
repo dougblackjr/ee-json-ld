@@ -52,10 +52,10 @@ class Json_ld_mcp {
 		 */
 		
 		// Delete if something is there
-		if ( ! empty($_POST))
-		{
-			$this->delete();
-		}
+		// if ( ! empty($_POST))
+		// {
+		// 	$this->delete();
+		// }
 
 		// Get base info
 		$base_url = ee('CP/URL')->make('addons/settings/json_ld');
@@ -153,6 +153,8 @@ class Json_ld_mcp {
 
 		$this->_data['action_url'] = ee('CP/URL')->make('addons/settings/json_ld/savetemplate');
 
+		$this->_data['templates'] = ee()->jsonld->templates();
+
 		// Get types
 		$this->_data['types'] = ee()->jsonld->types();
 
@@ -175,6 +177,7 @@ class Json_ld_mcp {
 		$this->_data['template_data'] = $template_data['template_text'];
 		$this->_data['action_url'] = ee('CP/URL')->make('addons/settings/json_ld/resavetemplate');
 		$this->_data['types'] = ee()->jsonld->types();
+		$this->_data['templates'] = ee()->jsonld->templates();
 		
 		// Load helpers, libraries, and theme stuff
 		ee()->load->library('table');

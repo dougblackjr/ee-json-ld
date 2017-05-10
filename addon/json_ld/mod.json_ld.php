@@ -53,24 +53,8 @@ class Json_ld
 
 			if($each_template) {
 
-				// Get template
-				$template = ee()->jsonld->template($each_template);
-
-				$template_data = $template['template_text'];
-
-				// Parse tokens in template
-				foreach ($this->_session_data as $setvar) {
-					//Get token id
-					$template = $setvar[0];
-					// If token is in template
-					if($template == $each_template) {
-						// String replace ie. ##token1## -> GERBILS
-						$token_name = $setvar[1];
-						$token_data = $setvar[2];
-
-						$template_data = str_replace('##token'.$token_name.'##', trim($token_data), $template_data);
-					}
-				}
+				// Parse template
+				$template_data = $this->process_template(ee()->jsonld->template($each_template), $each_template);
 
 				// Add script tags
 				if ($test) {
@@ -92,6 +76,60 @@ class Json_ld
 
 		return $return_data;
 
+	}
+
+	private function process_template($template, $current)
+	{
+
+		$this->_session_data = ee()->session->cache['jsonld'];
+
+		$template_data = $template['template_text'];
+		
+		// Parse internal templates
+		// If an internal template exists
+		if ( strpos($template_data, '"##template') !== FALSE ) {
+			// Find where they are
+			preg_match_all('/"##template\d+##"/', $template_data, $matches);
+    		
+    		// For each, process it
+    		foreach ($matches as $match) {
+    			
+    			// Get template ID
+				preg_match_all('/\d+/', $match[0], $templateID);
+
+    			// Process the template
+    			$internalTemplate = ee()->jsonld->template(NULL, $templateID[0][0]);
+    			
+    			if(!empty($internalTemplate))
+    			{
+					
+					$templateToInsert = $this->process_template($internalTemplate, $internalTemplate['template_name']);
+
+					// Insert it into this template
+    				$template_data = str_replace('"##template'.$templateID[0][0].'##"', trim($templateToInsert), $template_data);
+
+    			}
+
+    		}
+		
+		}
+
+		// Parse tokens in template
+		foreach ($this->_session_data as $setvar) {
+
+			//Get token id
+			$template = $setvar[0];
+			// If token is in template
+			if($template == $current) {
+				// String replace ie. ##token1## -> GERBILS
+				$token_name = $setvar[1];
+				$token_data = $setvar[2];
+
+				$template_data = str_replace('##token'.$token_name.'##', trim($token_data), $template_data);
+			}
+		}
+
+		return $template_data;
 	}
 
 	private function strip_html($data)

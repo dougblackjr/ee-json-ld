@@ -7,7 +7,7 @@
 	// WHEN TYPE CHANGE, BUILD THE FORM
 	$( "#jsonld-type" ).change(function() {
 		// Show the pre div
-		$('.add-fields').show();
+		$('.add-fields, .token-farm, .template-farm, .type-doc').show();
 
 		// Blur
 		$('#jsonld-type').blur();
@@ -104,7 +104,7 @@
 			return this.value + '##token'+$token+'##';
 		});
 
-		$('#token-farm').append('<a class="token-drag fa fa-plus-circle" draggable="true" ondragstart="drag(event)">##token'+$token+'##</a>');
+		$('#token-farm').append('<a class="token-drag" draggable="true" ondragstart="drag(event)"><span class="fa fa-plus-circle"></span>##token'+$token+'##</a>');
 
 		$token++;
 

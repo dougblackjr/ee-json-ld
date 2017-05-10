@@ -56,6 +56,22 @@
 					</div>
 					<div class="col-group">
 						<div class="col w-16">
+							<div class="template-farm">
+								<p class="title">Available Templates</p>
+								<div id="template-farm">
+									<?php
+										if (!empty($templates)) {
+											foreach ($templates as $template) {
+												echo "<a class='token-drag' draggable='true' ondragstart='dragTemplate(event)' data-id='".$template['id']."'><span class='fa fa-plus-circle'></span>".$template['template_name']."</a>";
+											}
+										}
+									?>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-group">
+						<div class="col w-16">
 							<div class="token-farm">
 								<p class="title">Available Tokens </p>
 								<div id="token-farm"></div>

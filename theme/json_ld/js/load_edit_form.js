@@ -73,7 +73,7 @@ $(document).ready(function($) {
 				$dropdown.append($("<option></option>").attr("value", f).text(e));
 			});
 
-			$('.add-fields').show();
+			$('.add-fields, .token-farm, .template-farm').show();
 				
 		},
 		error: function(xhr){
@@ -159,7 +159,7 @@ $(document).ready(function($) {
 
 									}
 
-									$('#token-farm').append('<a class="token-drag fa fa-plus-circle" draggable="true" ondragstart="drag(event)">##token'+split[0]+'##</a>');
+									$('#token-farm').append('<a class="token-drag" draggable="true" ondragstart="drag(event)"><span class="fa fa-plus-circle"></span>##token'+split[0]+'##</a>');
 
 								}
 
@@ -207,7 +207,7 @@ $(document).ready(function($) {
 
 						}
 
-						$('#token-farm').append('<a class="token-drag fa fa-plus-circle" draggable="true" ondragstart="drag(event)">##token'+split[0]+'##</a>');
+						$('#token-farm').append('<a class="token-drag" draggable="true" ondragstart="drag(event)"><span class="fa fa-plus-circle"></span>##token'+split[0]+'##</a>');
 
 						// If value is higher than token currently
 						if(split[0] >= $token) {

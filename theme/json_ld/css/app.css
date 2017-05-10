@@ -94,10 +94,6 @@ body {
   padding: 20px;
 }
 
-.choose-type, .add-fields {
-  margin-bottom: 3rem;
-}
-
 .common-types a {
   font-size: 0.8rem;
 }
@@ -126,8 +122,13 @@ a.nested-form {
   color: white !important;
 }
 
-.add-fields, .doc-link {
+.add-fields, .type-doc, .token-farm, .template-farm {
   display: none;
+  border-bottom: 1px solid #efefef;
+}
+
+.choose-type {
+  border-bottom: 1px solid #efefef;
 }
 
 #jsonld-type, #jsonld-fields {

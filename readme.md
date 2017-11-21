@@ -1,7 +1,7 @@
-![logo.png]
+![logo.png](dougblackjr.com/images/jsonldlogo.png)
 
 # JSON-LD Plugin for ExpressionEngine
-> SEO-friendly schema generator for EE3
+> SEO-friendly schema generator for EE3 and EE4
  
 Create JSON-LD templates for your content, and insert them into your front-facing templates.
 

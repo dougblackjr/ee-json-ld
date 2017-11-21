@@ -4,7 +4,7 @@
 			<div class="filters">
 				<ul>
 					<li>
-						<a href="new"><?=lang('json_ld_create_new')?></a>
+						<a href="<?=ee('CP/URL')->make('addons/settings/json_ld').'/new_template'?>"><?=lang('json_ld_create_new')?></a>
 					</li>
 				</ul>
 			</div>

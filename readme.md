@@ -1,4 +1,4 @@
-![logo.png](dougblackjr.com/images/jsonldlogo.png)
+![logo.png](https://dougblackjr.com/images/jsonldlogo.png)
 
 # JSON-LD Plugin for ExpressionEngine
 > SEO-friendly schema generator for EE3 and EE4

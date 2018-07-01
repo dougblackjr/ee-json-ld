@@ -22,7 +22,7 @@
 		
 		// Make the AJAX call
 		$.ajax({
-			url:'admin.php?/cp/addons/settings/json_ld/ajaxcall',
+			url:EE.jsonld.ajax,
 			type:'POST',
 			action: 'getTypeFields', 
 			data: {
@@ -69,7 +69,7 @@
 
 		// Test if it's nested
 		$.ajax({
-			url:'admin.php?/cp/addons/settings/json_ld/ajaxcall',
+			url:EE.jsonld.ajax,
 			type:'POST',
 			action: 'getTypeFields', 
 			data: {
@@ -119,7 +119,7 @@
 		var el = this;
 
 		$.ajax({
-			url:'admin.php?/cp/addons/settings/json_ld/ajaxcall',
+			url:EE.jsonld.ajax,
 			type:'POST',
 			action: 'getTypeFields', 
 			data: {
@@ -167,7 +167,7 @@
 		
 		// Make ajax call with serialized data
 		$.ajax({
-			url:'admin.php?/cp/addons/settings/json_ld/ajaxcall',
+			url:EE.jsonld.ajax,
 			type:'POST',
 			action: 'getJSONLD', 
 			data: {
@@ -218,7 +218,7 @@
 		formData = $('#json-ld-template-final').val();
 		
 		$.ajax({
-			url:'admin.php?/cp/addons/settings/json_ld/ajaxcall',
+			url:EE.jsonld.ajax,
 			type:'POST',
 			action: 'googleValidate', 
 			data: {

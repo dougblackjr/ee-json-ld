@@ -27,6 +27,7 @@ class Json_ld_mcp {
 
 		// Load Model
 		ee()->load->model('json_ld_model', 'jsonld');
+		ee()->load->library('javascript');
 		ee()->load->helper('url');
 		//build theme url path
 		$this->theme_url = URL_THIRD_THEMES."json_ld/";
@@ -43,6 +44,11 @@ class Json_ld_mcp {
 		ee()->view->header = array(
 			'title' => lang('json_ld_module_name')
 		);
+
+		// Set global JS calls
+		ee()->javascript->set_global(array(
+			'jsonld.ajax' => ee('CP/URL', 'addons/settings/json_ld/ajaxcall')->compile()
+		));
 
 	}
 

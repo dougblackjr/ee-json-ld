@@ -8,7 +8,7 @@ $(document).ready(function($) {
 	// Make ajax call with template id
 	$.ajax({
 		async: false,
-		url:'admin.php?/cp/addons/settings/json_ld/ajaxcall',
+		url:EE.jsonld.ajax,
 		type:'POST',
 		action: 'populateForm', 
 		data: {
@@ -56,7 +56,7 @@ $(document).ready(function($) {
 
 	$.ajax({
 		async: false,
-		url:'admin.php?/cp/addons/settings/json_ld/ajaxcall',
+		url:EE.jsonld.ajax,
 		type:'POST',
 		action: 'getTypeFields', 
 		data: {
@@ -104,7 +104,7 @@ $(document).ready(function($) {
 
 				$.ajax({
 					async: false,
-					url:'admin.php?/cp/addons/settings/json_ld/ajaxcall',
+					url:EE.jsonld.ajax,
 					type:'POST',
 					action: 'getTypeFields', 
 					data: {

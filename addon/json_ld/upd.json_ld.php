@@ -2,7 +2,7 @@
 
 class Json_ld_upd {
 
-	var $version = '1.0.0';
+	var $version = '1.2.0';
 
 	function install()
 	{

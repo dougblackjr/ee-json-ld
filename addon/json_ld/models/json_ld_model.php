@@ -29,6 +29,10 @@ class Json_ld_model extends CI_Model {
 		
 		// Sort them
 		sort($class_names);
+
+		foreach ($class_names as $key => $value) {
+			$class_names[$key] = ucfirst($value);
+		}
 		
 		// Return it
 		return $class_names;
